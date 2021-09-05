@@ -33,18 +33,19 @@ const StepBar: React.FC<ISignUp> = ({
 }: ISignUp) => {
   
   const handleInputChange = (e: any) => {
-    const reader = new FileReader();
     const value = e.target.value;
     const name = e.target.name;
-    if (name == "picture") {
+    if (name === "picture") {
+      const reader = new FileReader();
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setSignUp({ ...signUp, [name]: reader.result });
+          setSignUp((prev) => ({ ...prev, [name]: reader.result }));
         }
       };
       reader.readAsDataURL(e.target.files[0]);
+      return;
     }
-    setSignUp({ ...signUp, [name]: value });
+    setSignUp((prev) => ({ ...prev, [name]: value }));
   };
 
   return (

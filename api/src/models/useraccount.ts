@@ -37,7 +37,7 @@ UserAccount.init(
       },
     },
     picture: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     step: {
       type: DataTypes.INTEGER,
@@ -54,15 +54,15 @@ UserAccount.init(
   }
 );
 
-UserAccount.beforeCreate((userAccount, options) => {
+UserAccount.beforeCreate(async (userAccount, options) => {
   if (userAccount.password) {
-    userAccount.passwordHash = bcrypt.hashSync(userAccount.password, 10);
+    userAccount.passwordHash = await bcrypt.hash(userAccount.password, 10);
   }
 });
 
-UserAccount.beforeUpdate((userAccount, options) => {
+UserAccount.beforeUpdate(async (userAccount, options) => {
   if (userAccount.password) {
-    userAccount.passwordHash = bcrypt.hashSync(userAccount.password, 10);
+    userAccount.passwordHash = await bcrypt.hash(userAccount.password, 10);
   }
 });
 

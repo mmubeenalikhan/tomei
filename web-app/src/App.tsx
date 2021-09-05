@@ -38,7 +38,7 @@ const App: React.FC = () => {
         name,
         email,
         password,
-        picture: "s3.server-location.some-dummy-url.com/image-001",
+        picture: signUpData.picture,
       };
       const response = await signupAPI(payload);
       if (response) {

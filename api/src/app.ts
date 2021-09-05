@@ -16,7 +16,11 @@ class App {
 
   private config(): void {
     this.app.use(bodyParser.json());
-    this.app.use(cors());
+    this.app.use(
+      cors({
+        origin: (process.env.CORS_ORIGIN || "http://localhost:3000").split(","),
+      })
+    );
     modelsInit();
   }
 

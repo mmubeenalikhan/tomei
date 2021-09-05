@@ -1,5 +1,5 @@
 import MaterialTost from "materialize-css";
-const SERVER_URL: string = "http://localhost:3001";
+const SERVER_URL: string = process.env.REACT_APP_API_URL || "http://localhost:3001";
 
 export const signup = (payload: {
   name: string;

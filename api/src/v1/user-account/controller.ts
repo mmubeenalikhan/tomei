@@ -29,11 +29,11 @@ export default class UserAccountController {
         success: false,
         errors: [{ msg: "Unable to create user-account" }],
       });
-    } catch (errors) {
-      console.log(errors);
-      res.status(400).json({
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
         success: false,
-        errors,
+        errors: [{ msg: "Something went wrong. Please try again." }],
       });
     }
   }

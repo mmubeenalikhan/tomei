@@ -1,0 +1,66 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-password}
+      MYSQL_DATABASE: ${DB_NAME:-test}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-uroot",
+          "-p${DB_PASSWORD:-password}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build:
+      context: ./api
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD:-password}
+      DB_NAME: ${DB_NAME:-test}
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DIALECT: mysql
+      CORS_ORIGIN: http://localhost:3000
+    ports:
+      - "3001:3001"
+    # Applies pending migrations before starting the server on every boot.
+    command: sh -c "npx sequelize-cli db:migrate && node build/index.js"
+
+  web-app:
+    build:
+      context: ./web-app
+      args:
+        # CRA bakes env vars in at build time, and the browser (not the
+        # docker network) is what calls this URL, so it must be the
+        # host-mapped api port, not the in-network service name.
+        REACT_APP_API_URL: http://localhost:3001
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "3000:80"
+
+volumes:
+  mysql-data:

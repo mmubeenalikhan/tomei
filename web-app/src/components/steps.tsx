@@ -1,11 +1,11 @@
 import React, { useState, Fragment } from "react";
-import Logo from "../imeages/Logo.png";
-import Step1 from "../imeages/Wizard-Step1.png";
-import Step2 from "../imeages/Wizard-Step2.png";
-import Step3 from "../imeages/Wizard-Step3.png";
-import Step4 from "../imeages/Wizard-Step4.png";
-import Step5 from "../imeages/Wizard-Step5.png";
-import StraightLine from "../imeages/Wizard-HorizontalBar.png";
+import Logo from "../images/Logo.png";
+import Step1 from "../images/Wizard-Step1.png";
+import Step2 from "../images/Wizard-Step2.png";
+import Step3 from "../images/Wizard-Step3.png";
+import Step4 from "../images/Wizard-Step4.png";
+import Step5 from "../images/Wizard-Step5.png";
+import StraightLine from "../images/Wizard-HorizontalBar.png";
 import Title from "./title";
 import StepNumber from "./stepNumber";
 

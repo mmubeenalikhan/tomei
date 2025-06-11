@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import Arrow from "../imeages/arrow-right.png";
+import Arrow from "../images/arrow-right.png";
 import Button from "./button";
 import Input from "./input";
 import UploadImage from "./uploadImage";

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Avatar from "../imeages/Avatar.png";
+import Avatar from "../images/Avatar.png";
 interface IUploader {
   src: string | null;
   name: string;
